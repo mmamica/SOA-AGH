@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+
+</h:head>
+<h:body>
+   <h1> Losowanie </h1>
+   <h:form>
+      <h:outputLabel>Podaj swoje dane: </h:outputLabel><br/>
+      IMIE: <h:inputText value="#{Losowanie.name}"/> <br/>
+      NAZWSIKO: <h:inputText value="#{Losowanie.last_name}"/><br/>
+      WIEK: <h:inputText id="age" value="#{Losowanie.age}" validatorMessage="Wiek nieprawidłowy!">
+      <f:validateLongRange maximum="120" minimum="1"></f:validateLongRange>
+   </h:inputText><br/>
+      <h:message for="age" style="color:red" /><br/>
+
+      <h:commandButton value="Zatwierdz" action="#{Losowanie.wyslij}"></h:commandButton>
+   </h:form>
+</h:body>
+</html>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xml:lang="en" lang="en">
+<h:head>
+    <title>Books</title>
+</h:head>
+<body>
+<h1>Lista Książek</h1>
+
+<br/>
+<h2>Filtruj</h2>
+
+<h:form>
+    <h:panelGroup id="filtry">
+
+        <p>Zakres cenowy: od <h:selectOneMenu id="od" value="#{Logic.priceMin}">
+            <f:selectItems value="#{Logic.priceRange}"/>
+        </h:selectOneMenu> do <h:selectOneMenu id="do" value="#{Logic.priceMax}">
+            <f:selectItems value="#{Logic.priceRange}"/>
+
+        </h:selectOneMenu></p>
+        <p>Rodzaj waluty: <h:selectOneMenu id="waluta" value="#{Logic.currency}">
+            <f:selectItems value="#{Logic.currencyList}"/>
+        </h:selectOneMenu> </p>
+
+        <p>Typ książki: <h:selectOneMenu id="typ" value="#{Logic.type}">
+            <f:selectItems value="#{Logic.typeList}"/>
+        </h:selectOneMenu></p>
+
+    </h:panelGroup>
+
+    <h:commandButton value="Filtruj">
+        <f:ajax event="click" execute="filtry" render="tabela" />
+    </h:commandButton>
+
+</h:form>
+
+
+<h3>Ukryj element</h3>
+<h:form>
+    <h:panelGroup id="hide_elements">
+            <p>Tytuł</p>
+            <h:selectBooleanCheckbox value="#{Logic.ifTitle}"/>
+            <p>Autorr</p>
+            <h:selectBooleanCheckbox value="#{Logic.ifAuthor}"/>
+            <p>Typ</p>
+            <h:selectBooleanCheckbox value="#{Logic.ifType}"/>
+            <p>Cena</p>
+            <h:selectBooleanCheckbox value="#{Logic.ifPrice}"/>
+            <p>Waluta</p>
+            <h:selectBooleanCheckbox value="#{Logic.ifCurrency}"/>
+        <p>Cena</p>
+        <h:selectBooleanCheckbox value="#{Logic.ifPricePLN}"/>
+        <p>PLN</p>
+        <h:selectBooleanCheckbox value="#{Logic.ifPLN}"/>
+            <p>Strony</p>
+            <h:selectBooleanCheckbox value="#{Logic.ifPages}"/>
+
+
+
+
+        <h:commandButton value="Filtruj">
+        <f:ajax event="click" execute="hide_elements" render="tabela"/>
+        </h:commandButton>
+
+    </h:panelGroup>
+</h:form>
+
+
+<h3>TABELA</h3>
+
+<h:panelGroup  id="tabela">
+    <h:form>
+        <h:dataTable value="#{Logic.booksToDisplay}" var="o">
+            <h:column id="title" rendered="#{Logic.ifTitle}">
+                <f:facet name="header">Tytuł</f:facet>
+                #{o.title}
+            </h:column>
+
+            <h:column id="author" rendered="#{Logic.ifAuthor}">
+                <f:facet name="header">Autor</f:facet>
+                #{o.author}
+            </h:column>
+
+            <h:column id="type" rendered="#{Logic.ifType}">
+                <f:facet name="header">Typ</f:facet>
+                #{o.type}
+            </h:column>
+
+            <h:column id="price" rendered="#{Logic.ifPrice}">
+                <f:facet name="header">Cena</f:facet>
+                #{o.price}
+            </h:column>
+
+            <h:column id="currency" rendered="#{Logic.ifCurrency}">
+                <f:facet name="header">Waluta</f:facet>
+                #{o.currency}
+            </h:column>
+
+
+            <h:column id="pricePLN" rendered="#{Logic.ifPricePLN}">
+                <f:facet name="header">Cena</f:facet>
+                #{o.pln}
+            </h:column>
+
+            <h:column id="currencyPLN" rendered="#{Logic.ifCurrency}">
+                <f:facet name="header">Waluta</f:facet>
+                PLN
+            </h:column>
+
+            <h:column id="pages" rendered="#{Logic.ifPages}">
+                <f:facet name="header">Liczba stron</f:facet>
+                #{o.pages}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Wybierz</f:facet>
+                <h:selectBooleanCheckbox value="#{o.selected}"/>
+            </h:column>
+
+        </h:dataTable>
+
+        <h:commandButton title="selectItems"
+                         value="Dodaj">
+            <f:ajax event="click" execute="tabela" render="panel" listener="#{Logic.setSelectedBooks}"/>
+        </h:commandButton>
+    </h:form>
+</h:panelGroup>
+
+
+
+<h3>Panel klienta</h3>
+<h:panelGroup id="panel">
+    <p>Łączna liczba książek: #{Logic.booksSize}</p>
+    <p>Łączna cena książek: #{Logic.booksPrice} PLN</p>
+    <h:dataTable value="#{Logic.selectedBooks}" var="book">
+        <h:column>
+            <f:facet name="header">Tytuł</f:facet>
+            #{book.title}
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">Autor</f:facet>
+            #{book.author}
+        </h:column>
+    </h:dataTable>
+</h:panelGroup>
+
+
+</body>
+</html>

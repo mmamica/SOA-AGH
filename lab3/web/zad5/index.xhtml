@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xml:lang="en" lang="en">
+<h:head>
+    <title>Ankieta</title>
+</h:head>
+<h:body>
+    <h2>Wypełnij ankietę</h2>
+
+    <h:panelGroup>
+    <h:form>
+        <h:panelGroup id="firstPart">
+            <p>IMIĘ: <h:inputText id="name" value="#{Ankieta.name}" validator="#{validator.validateName}">
+            </h:inputText></p>
+            <h:message for="name" style="color:red" />
+
+            <p>EMAIL: <h:inputText id="email" value="#{Ankieta.email}" validator="#{validator.validateEmail}">
+            </h:inputText> </p>
+            <h:message for="email" style="color:red" />
+
+
+            <p>WIEK: <h:inputText id="age" value="#{Ankieta.age}" validator="#{validator.validateAge}">
+            </h:inputText>
+            </p>
+            <p><h:message for="age" style="color:red" /></p>
+
+            <p>PŁEĆ: <h:selectOneMenu id="gender" value="#{Ankieta.gender}">
+                <f:selectItem itemLabel="female" itemValue="female"/>
+                <f:selectItem itemLabel="male" itemValue="male"/>
+                <f:ajax event="change" listener="#{Ankieta.addMeasures}" render="first_part"/>
+            </h:selectOneMenu> </p>
+
+            <p>WYKSZTAŁCENIE: <h:selectOneMenu id="education" value="#{Ankieta.education}">
+                <f:selectItem itemLabel="Brak" itemValue=""/>
+                <f:selectItem itemLabel="Podstawowe" itemValue="Podstawowe"/>
+                <f:selectItem itemLabel="Średnie" itemValue="Średnie"/>
+                <f:selectItem itemLabel="Wyższe" itemValue="Wyższe"/>
+            </h:selectOneMenu> </p>
+
+            <p>WZROST: <h:inputText id="height" value="#{Ankieta.height}" validator="#{Ankieta.validateHeight}">
+            </h:inputText></p>
+            <p><h:message for="height" style="color:red" /></p>
+
+            <h:commandButton value="Dalej">
+                <f:ajax event="click" execute="firstPart" render="firstPart male female"/>
+            </h:commandButton>
+
+            <h:panelGroup id="male" rendered="#{Ankieta.gender.equals('male')}">
+                <p>KLATKA: <h:inputText id="shoulders" value="#{Ankieta.shoulders}" validator="#{validator.validateShoulders}"/></p>
+                <p><h:message for="shoulders" style="color:red" /></p>
+                <p>PAS: <h:inputText id="abs" value="#{Ankieta.abs}" validator="#{validator.validateAbs}"/></p>
+                <p><h:message for="abs" style="color:red" /></p>
+                <h:commandButton value="Dalej">
+                    <f:ajax event="click" execute="firstPart female male" render="secondPart firstPart female male"  listener="#{Ankieta.setFirstPart}"/>
+                </h:commandButton>
+            </h:panelGroup>
+
+            <h:panelGroup id="female" rendered="#{Ankieta.gender.equals('female')}">
+                <p>BREAST: <h:inputText id="breast" value="#{Ankieta.breast}" validator="#{validator.validateBreast}"/></p>
+                <p><h:message for="breast" style="color:red" /></p>
+                <p>BRA: <h:inputText id="bra" value="#{Ankieta.bra}" validator="#{validator.validateBra}"/></p>
+                <p><h:message for="bra" style="color:red" /></p>
+                <p>WAIST: <h:inputText id="waist" value="#{Ankieta.waist}" validator="#{validator.validateWaist}" /></p>
+                <p><h:message for="waist" style="color:red" /></p>
+                <p>HIPS: <h:inputText id="hips" value="#{Ankieta.hips}" validator="#{validator.validateHips}"/></p>
+                <p><h:message for="hips" style="color:red" /></p>
+
+                <h:commandButton value="Dalej">
+                    <f:ajax event="click" execute="firstPart female male" render="secondPart firstPart female male" listener="#{Ankieta.setFirstPart}"/>
+                </h:commandButton>
+            </h:panelGroup>
+        </h:panelGroup>
+
+
+            <h:panelGroup id="secondPart" style="display: #{Ankieta.displaySecondPart()}">
+                <h:form>
+                    <p>Ile jesteś w stanie przeznaczyc miesięcznie na zakup ubrania? <h:selectOneMenu id="priceRange" value="#{Ankieta.priceRange}">
+                        <f:selectItem itemLabel="do 100 zł" itemValue="do 100 zł"/>
+                        <f:selectItem itemLabel="100-500 zł" itemValue="100-500 zł"/>
+                        <f:selectItem itemLabel="500-1000 zł" itemValue="500-1000 zł"/>
+                        <f:selectItem itemLabel="powyżej 1000 zł" itemValue="powyżej 1000 zł"/>
+                    </h:selectOneMenu>
+                    </p>
+                    <p>Jak często dokonujesz zakupu ubrania? <h:selectOneMenu id="howOften" value="#{Ankieta.howOften}">
+                        <f:selectItem itemLabel="Codziennie" itemValue="Codziennie"/>
+                        <f:selectItem itemLabel="Raz w tygodniu" itemValue="Raz w tygodniu"/>
+                        <f:selectItem itemLabel="Raz w miesiącu" itemValue="Raz w miesiącu"/>
+                        <f:selectItem itemLabel="Kilka razy w roku" itemValue="Kilka razy w roku"/>
+                    </h:selectOneMenu> </p>
+
+                    <p>W jakich kolorach preferujesz ubrania? <h:selectOneMenu id="color" value="#{Ankieta.color}">
+                        <f:selectItem itemLabel="Kolorowo-jaskrawych" itemValue="Kolorowo-jaskrawych"/>
+                        <f:selectItem itemLabel="Stonowanych w szarościach"  itemValue="Stonowanych w szarościach"/>
+                        <f:selectItem itemLabel="W czerni i bieli" itemValue="W czerni i bieli"/>
+                        <f:selectItem itemLabel="W samej czerni" itemValue="W samej czerni"/>
+                    </h:selectOneMenu>
+                    </p>
+
+                    <p>Jakiego rodzaju ubrania najchętniej kupujesz? <h:selectOneMenu id="clothes" value="#{Ankieta.clothes}">
+                        <f:selectItems value="#{Ankieta.displayClothes}"/>
+                    </h:selectOneMenu>
+                    </p>
+                </h:form>
+
+
+                    <h:commandButton value="Zatwierdz">
+                        <f:ajax event="click" execute="secondPart secondPart" render="panel" listener="#{Ankieta.setSecondPart}"/>
+                    </h:commandButton>
+            </h:panelGroup>
+
+            <h:panelGroup id="panel" style="display: #{Ankieta.displayPanel()}">
+                <h3>Panel użytkownika</h3>
+                <p>Imię: #{Ankieta.name}</p>
+                <p>Email: #{Ankieta.email}</p>
+                <p>Wiek: #{Ankieta.age}</p>
+                <p>Płeć: #{Ankieta.gender}</p>
+                <p>Wykształcenie #{Ankieta.education}</p>
+                <p>Wzrost #{Ankieta.height}</p>
+                <p style="display: #{Ankieta.displayGender('male')}">Obwód klatki: #{Ankieta.shoulders}</p>
+                <p style="display: #{Ankieta.displayGender('male')}">Obwód pasa: #{Ankieta.abs}</p>
+                <p style="display: #{Ankieta.displayGender('female')}">Obwód biustu: #{Ankieta.breast}</p>
+                <p style="display: #{Ankieta.displayGender('female')}">Rozmiar miseczki: #{Ankieta.bra}</p>
+                <p style="display: #{Ankieta.displayGender('female')}">Obwód talii: #{Ankieta.waist}</p>
+                <p style="display: #{Ankieta.displayGender('female')}">Obwód bioder: #{Ankieta.hips}</p>
+
+                <p>Kwota przeznaczana miesięcznie na ubrania: #{Ankieta.priceRange}</p>
+                <p>Częstotliwość kupowania ubrań: #{Ankieta.howOften}</p>
+                <p>Preferowane kolory: #{Ankieta.color}</p>
+                <p>Najchętniej kupowane ubrania: #{Ankieta.clothes}</p>
+            </h:panelGroup>
+
+
+    </h:form>
+    </h:panelGroup>
+
+    <h:panelGroup>
+        <h:form>
+            <h:commandLink action="#{Advertisement.add}">
+                <f:ajax render="clicker" />
+                <h:graphicImage value="#{Advertisement.generate()}"/>
+            </h:commandLink>
+        </h:form>
+    </h:panelGroup>
+
+    <h:panelGroup id="clicker"> Licznik kliknięć: #{Advertisement.clicker}</h:panelGroup>
+
+</h:body>
+</html>
