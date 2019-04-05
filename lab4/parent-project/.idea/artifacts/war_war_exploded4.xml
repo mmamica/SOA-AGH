@@ -1,0 +1,21 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="war:war exploded4">
+    <output-path>$PROJECT_DIR$/out/artifacts/war_war_exploded4.war</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="war/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="war" />
+          <element id="module-output" name="impl" />
+          <element id="module-output" name="api" />
+        </element>
+        <element id="directory" name="lib" />
+      </element>
+      <element id="javaee-facet-resources" facet="api/ejb/EJB" />
+      <element id="module-output" name="api" />
+      <element id="javaee-facet-resources" facet="impl/ejb/EJB" />
+      <element id="module-output" name="impl" />
+      <element id="library" level="project" name="ejb-3.1(2)" />
+    </root>
+  </artifact>
+</component>

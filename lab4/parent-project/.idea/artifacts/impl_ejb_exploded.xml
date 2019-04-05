@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="impl:ejb exploded">
+    <output-path>$PROJECT_DIR$/impl/target/impl-1.0-SNAPSHOT</output-path>
+    <root id="archive" name="impl_ejb exploded.jar">
+      <element id="javaee-facet-resources" facet="impl/ejb/EJB" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/impl/target/impl-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="impl" />
+      <element id="javaee-facet-resources" facet="api/ejb/EJB" />
+      <element id="module-output" name="api" />
+    </root>
+  </artifact>
+</component>

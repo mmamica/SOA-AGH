@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:f="http://xmlns.jcp.org/jsf/core" xml:lang="en" lang="en">
+<h:head>
+    <title>Teatr</title>
+</h:head>
+
+<h:body>
+    <h1>Rezerwacja biletów</h1>
+
+    <h:panelGroup id="user">
+        <p>Witaj #{Theater.getUser().getName()} </p>
+        <p>Twój budżet: #{Theater.getUser().getBudget()}</p>
+        <h:form>
+            <h:commandButton value="Wyloguj" action="#{Theater.logOut}"/>
+        </h:form>
+    </h:panelGroup>
+
+    <h1>Wolne miejsca</h1>
+
+
+    <h:panelGroup  id="tabela">
+        <h:form>
+            <h:dataTable value="#{Theater.getSeats()}" var="s">
+                <h:column id="row">
+                    <f:facet name="header">Rząd</f:facet>
+                    #{s.row}
+                </h:column>
+                <h:column id="number">
+                    <f:facet name="header">Numer</f:facet>
+                    #{s.number}
+                </h:column>
+
+                <h:column id="price">
+                    <f:facet name="header">Cena</f:facet>
+                    #{s.price}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Wybierz</f:facet>
+                    <!--<h:selectBooleanCheckbox value="#{s.booked}" rendered="#{s.notBooked()}"/>-->
+
+                    <h:commandButton title="selectItems" value="Dodaj" rendered="#{s.notBooked()}">
+                        <f:ajax event="click" execute="tabela" render="tabela user panel profil" listener="#{Theater.book(s)}"/>
+                    </h:commandButton>
+                </h:column>
+            </h:dataTable>
+            <h:messages style = "color:red;margin:8px;" />
+        </h:form>
+    </h:panelGroup>
+
+    <h:panelGroup id="profil">
+    <h2>Twoje rezerwacje: </h2>
+    <h:dataTable value="#{Theater.getUserSeats()}" var="s">
+        <h:column>
+            <f:facet name="header">Rząd</f:facet>
+            #{s.row}
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">Miejsce</f:facet>
+            #{s.number}
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">Cena</f:facet>
+            #{s.price} zł
+        </h:column>
+
+    </h:dataTable>
+        <h3>Cena łącznie: #{Theater.sumCost()}</h3>
+
+    </h:panelGroup>
+
+
+
+</h:body>
+
+</html>
