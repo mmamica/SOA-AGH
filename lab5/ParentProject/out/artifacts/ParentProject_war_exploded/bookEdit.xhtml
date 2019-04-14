@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Books</title>
+
+</h:head>
+<body>
+<h:form id="editBookForm" >
+    <p>
+        Editing the details of the book
+        <br/>
+        Id: #{book.editId}
+    </p>
+    <h:panelGrid columns="1">
+        Author's Name: <h:inputText id="name" value="#{book.authorName}" />
+        Author's Surname: <h:inputText id="surname"  value="#{book.authorSurname}" />
+        Title: <h:inputText id="title"  value="#{book.title}"/>
+        ISBN: <h:inputText id="isbn"  value="#{book.isbn}"/>
+        Year: <h:inputText id="year"  value="#{book.year}"/>
+        Price: <h:inputText id="price"  value="#{book.price}"/>
+        <h:commandButton value="Save" action="#{book.updateBookDetails(book)}" />
+        <h:outputLink value="booksList.xhtml">View Book Record List</h:outputLink>
+    </h:panelGrid>
+</h:form>
+
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <!--<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" http-equiv="X-UA-Conpatible" />-->
+    <!--<h:outputStylesheet library="css" name="bootstrap.min.css" />-->
+    <title>Books</title>
+
+</h:head>
+<body>
+
+    <h:form id="newBookForm" >
+        <h:panelGrid columns="1">
+        Author's Name: <h:inputText id="name" value="#{book.authorName}" />
+        Author's Surname: <h:inputText id="surname"  value="#{book.authorSurname}" />
+        Title: <h:inputText id="title"  value="#{book.title}"/>
+        ISBN: <h:inputText id="isbn"  value="#{book.isbn}"/>
+        Year: <h:inputText id="year"  value="#{book.year}"/>
+        Price: <h:inputText id="price"  value="#{book.price}"/>
+        <h:commandButton value="Save" action="#{book.addNewBook(book)}" />
+        </h:panelGrid>
+    </h:form>
+
+
+
+</body>
+</html>
