@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://primefaces.org/ui">
+<h:head>
+   <title>
+      List of Books
+   </title>
+</h:head>
+<h:body>
+   <h:form id="bookList">
+      <p:dataTable id="bookListTable" value="#{book.getAllBooks()}" var="b">
+
+         <p:column filterBy="#{b.id}">
+            <f:facet name="header">ID</f:facet>
+            <h:outputText value="#{b.id}"/>
+         </p:column>
+         <p:column filterBy="#{b.authorId.name}">
+            <f:facet name="header">Author</f:facet>
+            <h:outputText value="#{b.authorId.name } "/>
+         </p:column>
+         <p:column filterBy="#{b.title}">
+            <f:facet name="header">Title</f:facet>
+            <h:outputText value="#{b.title }"/>
+         </p:column>
+         <p:column filterBy="#{b.amount}">
+            <f:facet name="header">Amount</f:facet>
+            <h:outputText value="#{b.amount }"/>
+         </p:column>
+         <p:column>
+            <f:facet name="header">Delete</f:facet>
+            <h:commandButton action="#{book.deleteBook(b.id)}" value="Delete"/>
+         </p:column>
+         <p:column>
+            <f:facet name="header">Update</f:facet>
+            <h:commandButton action="#{book.editBookDetailsById()}" value="Update">
+               <f:param name="selectedBookId" value="#{b.id}"/>
+            </h:commandButton>
+         </p:column>
+      </p:dataTable>
+      <h:commandButton action="newBook.xhtml?faces-redirect=true" value="Add New Book"
+                       styleClass="btn btn-success btnSpace"/>
+   </h:form>
+
+
+   <h:form id="loans">
+      <p:dataTable id="loanTable" value="#{book.getAllLoans()}" var="l">
+
+         <p:column filterBy="#{l.id}">
+            <f:facet name="header">ID</f:facet>
+            <h:outputText value="#{l.id }"/>
+         </p:column>
+         <p:column filterBy="#{l.bookId.authorId.name}">
+            <f:facet name="header">Author</f:facet>
+            <h:outputText value="#{l.bookId.authorId.name } "/>
+         </p:column>
+         <p:column filterBy="#{l.bookId.title}">
+            <f:facet name="header">Title</f:facet>
+            <h:outputText value="#{l.bookId.title }"/>
+         </p:column>
+         <p:column filterBy="#{l.readerId.name}">
+            <f:facet name="header">User Name</f:facet>
+            <h:outputText value="#{l.readerId.name }"/>
+         </p:column>
+         <p:column filterBy="#{l.readerId.surName}">
+            <f:facet name="header">User Surname</f:facet>
+            <h:outputText value="#{l.readerId.surName }"/>
+         </p:column>
+         <p:column filterBy="#{l.startLoan}">
+            <f:facet name="header">Start</f:facet>
+            <h:outputText value="#{l.startLoan }"/>
+         </p:column>
+         <p:column filterBy="#{l.endLoan}">
+            <f:facet name="header">End</f:facet>
+            <h:outputText value="#{l.endLoan }"/>
+         </p:column>
+         <p:column >
+            <f:facet name="header">Delete</f:facet>
+            <h:commandButton action="#{book.deleteLoan(l.id)}" value="Delete"/>
+         </p:column>
+      </p:dataTable>
+      <h:commandButton action="newLoan.xhtml?faces-redirect=true" value="Add New Loan"
+                       styleClass="btn btn-success btnSpace"/>
+
+   </h:form>
+</h:body>
+
+</html>
